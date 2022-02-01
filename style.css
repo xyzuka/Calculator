@@ -78,7 +78,7 @@ body {
     grid-column: 1 / 3; /* grid starts at first column and stops at 3rd column */
 }
 
-.button.c {
+.button.ac {
     width: 170px;
     border-radius: 55px;
     justify-content: flex-start;

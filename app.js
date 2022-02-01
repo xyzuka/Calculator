@@ -13,7 +13,7 @@ const subtractEl = document.querySelector('.subtract');
 const multiplyEl = document.querySelector('.multiply');
 const divisionEl = document.querySelector('.division');
 
-const cEl = document.querySelector('.c');
+const acEl = document.querySelector('.ac');
 const delEl = document.querySelector('.del');
 
 const number0El = document.querySelector('.number-0');
@@ -28,6 +28,10 @@ const number8El = document.querySelector('.number-8');
 const number9El = document.querySelector('.number-9');
 const numberElArray = [number0El, number1El, number2El, number3El, number4El, number5El, number6El, number7El, number8El, number9El];
 // Using an array so we can loop through the numbers when adding event listeners to avoid duplicate code
+
+// Variables in initial state
+let valueStringInMemory = null;
+let operatorInMemory = null;
 
 // Time setup
 // Function to update time and change hour and minute text
@@ -103,4 +107,74 @@ decimalEl.addEventListener('click', () => {
     if (!currentValueString.includes('.')) {
         setStringAsValue(currentValueString + '.');
     }
+})
+
+// Operator function
+const getResultOfOperationAsString = () => {
+    const currentValueNumber = getValueAsNumber();
+    const valueNumberInMemory = parseFloat(valueStringInMemory);
+    let newValueNumber;
+    if (operatorInMemory === 'addition') {
+        newValueNumber = valueNumberInMemory + currentValueNumber;
+    } else if (operatorInMemory === 'subtraction') {
+        newValueNumber = valueNumberInMemory - currentValueNumber;
+    } else if (operatorInMemory === 'multiplication') {
+        newValueNumber = valueNumberInMemory * currentValueNumber;
+    } else if (operatorInMemory === 'division') {
+        newValueNumber = valueNumberInMemory / currentValueNumber;
+    }
+    return newValueNumber.toString();
+}
+
+// When user clicks an operator
+const handleOperatorClick = (operation) => {
+    const currentValueString = getValueAsString();
+
+    if (!valueStringInMemory) {
+        valueStringInMemory = currentValueString; // Store currentValueString in memory
+        operatorInMemory = operation; // Store operator in memory
+        setStringAsValue('0'); // Resets the string value displayed as 0
+        return;
+    }
+
+    // placing new value number as a string in memory
+    valueStringInMemory = getResultOfOperationAsString();
+    operatorInMemory = operation;
+    setStringAsValue('0');
+}
+
+// Event listeners for functions
+acEl.addEventListener('click', () => {
+    setStringAsValue('0');
+    valueStringInMemory = null;
+    operatorInMemory = null;
+})
+
+delEl.addEventListener('click', () => {
+
+})
+
+equalEl.addEventListener('click', () => {
+    if (valueStringInMemory) {
+        setStringAsValue(getResultOfOperationAsString());
+        valueStringInMemory = null;
+        operatorInMemory = null;
+    }
+})
+
+// Event listeners for operators
+additionEl.addEventListener('click', () => {
+    handleOperatorClick('addition');
+})
+
+subtractEl.addEventListener('click', () => {
+    handleOperatorClick('subtraction');
+})
+
+multiplyEl.addEventListener('click', () => {
+    handleOperatorClick('multiplication');
+})
+
+divisionEl.addEventListener('click', () => {
+    handleOperatorClick('division');
 })
