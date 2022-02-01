@@ -8,9 +8,9 @@
 body {
     margin: 25px;
     font-family: "Helvetica Neue", sans-serif;
-    display: flex;
+    /* display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; */
     justify-content: center;
     height: 90vh;
 }
@@ -32,7 +32,7 @@ body {
     height: 70px;
 }
 
-.display {
+.value {
     font-size: 90px;
     font-weight: lighter;
     height: 110px;
@@ -84,6 +84,10 @@ body {
     justify-content: flex-start;
     padding-left: 43px;
     grid-column: 1 / 3; /* grid starts at first column and stops at 3rd column */
+}
+
+.button.del {
+    font-size: 29px;
 }
 
 .button:active, /* active -> used to select and style a active link (when clicked) || focus -> when user clicks on div */
