@@ -5,6 +5,10 @@ const hourEl = document.getElementById('hour');
 const minuteEl = document.getElementById('minute');
 
 const valueEl = document.querySelector('.value');
+const string_1_El = document.getElementById('string-1');
+const string_2_El = document.getElementById('string-2');
+const string_operation = document.getElementById('string-operation');
+
 const equalEl = document.querySelector('.equal');
 const decimalEl = document.querySelector('.decimal');
 
@@ -46,12 +50,34 @@ const time = () => {
 setInterval(time, 1000);
 time();
 
+// Variables
+const numberInMem = null;
+const operatorInMem = null;
 
+// 1. Functions for operators
+const add = (numberInMem, currentNum) => {
+    return numberInMem + currentNum;
+}
 
+const subtract = (numberInMem, currentNum) => {
+    return numberInMem - currentNum;
+}
 
+const multiply = (numberInMem, currentNum) => {
+    return numberInMem * currentNum;
+}
 
+const divide = (numberInMem, currentNum) => {
+    return numberInMem / currentNum;
+}
 
+// 2. Function to call operator
+const operate = (numberInMem, operatorInMem, currentNum) => {
+    
+    operatorInMem = add;
+    
 
+}
 
 
 
