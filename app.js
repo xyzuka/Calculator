@@ -49,7 +49,6 @@ time();
 // 3. Takes the current display value and splits the comma and joins the numbers, so parseFloat can read the number without a comma and have toLocaleString add a comma 
 const getValueAsString = () => valueEl.textContent.split(',').join('');
 
-
 // 5. Function to convert string to value (debugging decimal bug) - also to update valueEl
 const setStringAsValue = (valueString) => {
     // check if the last valueString has a decimal
@@ -134,25 +133,21 @@ const handleOperatorClick = (operation) => {
         valueStringInMemory = currentValueString;
         operatorInMemory = operation;
         // ** need to figure out how to display the current string 
-        setStringAsValue('0');
+        setStringAsValue('1');
         return;
     }
 
     // saving new string alongside previous stingInMemory
     valueStringInMemory = getResult();
     operatorInMemory = operation;
-    setStringAsValue('0');
+    setStringAsValue('1'); // *** DEBUG
 }
 
 // 6. Adding event listeners to functions
 acEl.addEventListener('click', () => {
     let stringInMemory = null;
     let operatorInMemory = null;
-    valueEl.textContent = '0';
-})
-
-delEl.addEventListener('click', () => {
-
+    valueEl.textContent = '0'; // *** DEBUG
 })
 
 divisionEl.addEventListener('click', () => {
@@ -180,7 +175,11 @@ equalEl.addEventListener('click', () => {
     }
 })
 
+// 12. Delete key *** DEBUG
+delEl.addEventListener('click', () => {
+    valueEl.textContent = valueEl.textContent.toString().slice(0, -1);
 
+})
 
 
 
