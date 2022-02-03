@@ -46,20 +46,11 @@ const time = () => {
 setInterval(time, 1000);
 time();
 
-// Variables
-let stringInMemory = null;
-let operatorInMemory = null;
-
-// 4. Converting the current display from string to numbers so operators can work
-const getValueAsNumber = () => {
-    return parseFloat(getValueAsString());
-}
-
 // 3. Takes the current display value and splits the comma and joins the numbers, so parseFloat can read the number without a comma and have toLocaleString add a comma 
 const getValueAsString = () => valueEl.textContent.split(',').join('');
 
 
-// 6. Function to convert string to value (debugging decimal bug)
+// 5. Function to convert string to value (debugging decimal bug) - also to update valueEl
 const setStringAsValue = (valueString) => {
     // check if the last valueString has a decimal
     if (valueString[valueString.length -1] === '.') {
@@ -101,8 +92,7 @@ for (let i = 0; i < numberElArray.length; i++) {
     })
 }
 
-
-// 5. Event listener for decimal
+// 4. Event listener for decimal
 decimalEl.addEventListener('click', () => {
     const currentValueString = getValueAsString();
     if (!currentValueString.includes('.')) {
@@ -110,6 +100,85 @@ decimalEl.addEventListener('click', () => {
     }
 })
 
+// 10. Converting the current display from string to numbers so operators can work
+const getValueAsNumber = () => {
+    return parseFloat(getValueAsString());
+}
+
+// 9. Applying newString with stringInMemory with its operator
+const getResult = () => {
+    const currentValueNumber = getValueAsNumber(); // converted display as number
+    const valueNumberInMemory = parseFloat(valueStringInMemory); // changing string in memory to a number
+    let newValueNumber; // initializing the result of operations
+    if (operatorInMemory === 'addition') {
+        newValueNumber = valueNumberInMemory + currentValueNumber;
+    } else if (operatorInMemory === 'subtraction') {
+        newValueNumber = valueNumberInMemory - currentValueNumber;
+    } else if (operatorInMemory === 'multiplication') {
+        newValueNumber = valueNumberInMemory * currentValueNumber;
+    } else if (operatorInMemory === 'division') {
+        newValueNumber = valueNumberInMemory / currentValueNumber;
+    }
+    return newValueNumber.toString();
+}
+
+// 8. Variables
+let valueStringInMemory = null;
+let operatorInMemory = null;
+
+// 7. Function for operators
+const handleOperatorClick = (operation) => {
+    const currentValueString = getValueAsString();
+
+    if (!valueStringInMemory) {
+        valueStringInMemory = currentValueString;
+        operatorInMemory = operation;
+        // ** need to figure out how to display the current string 
+        setStringAsValue('0');
+        return;
+    }
+
+    // saving new string alongside previous stingInMemory
+    valueStringInMemory = getResult();
+    operatorInMemory = operation;
+    setStringAsValue('0');
+}
+
+// 6. Adding event listeners to functions
+acEl.addEventListener('click', () => {
+    let stringInMemory = null;
+    let operatorInMemory = null;
+    valueEl.textContent = '0';
+})
+
+delEl.addEventListener('click', () => {
+
+})
+
+divisionEl.addEventListener('click', () => {
+    handleOperatorClick('division');
+})
+
+multiplyEl.addEventListener('click', () => {
+    handleOperatorClick('multiplication');
+})
+
+additionEl.addEventListener('click', () => {
+    handleOperatorClick('addition');
+})
+
+subtractEl.addEventListener('click', () => {
+    handleOperatorClick('subtraction');
+})
+
+// 11. Equal operator
+equalEl.addEventListener('click', () => {
+    if (valueStringInMemory) {
+        setStringAsValue(getResult());
+        valueStringInMemory = null;
+        operatorInMemory = null;
+    }
+})
 
 
 
