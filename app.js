@@ -91,8 +91,16 @@ const operate = (operatorInMem, numberInMem, currentNum) => {
 }
 
 // 3. Updates display when clicking numbers
+numberElArray.forEach((button) => {
+    button.addEventListener('click', () => appendNumber(button.textContent));
+})
 
-
+const appendNumber = (number) => {
+    if (valueEl.textContent === '0') {
+        valueEl.textContent = '';
+    }
+    valueEl.textContent += number;
+}
 
 
 
