@@ -72,12 +72,29 @@ const divide = (numberInMem, currentNum) => {
 }
 
 // 2. Function to call operator
-const operate = (numberInMem, operatorInMem, currentNum) => {
-    
-    operatorInMem = add;
-    
-
+const operate = (operatorInMem, numberInMem, currentNum) => {
+    numberInMem = Number(numberInMem);
+    currentNum = Number(currentNum);
+    switch (operatorInMem) {
+        case '+':
+            return add(numberInMem, currentNum);
+        case '-':
+            return subtract(numberInMem, currentNum);
+        case '*':
+            return multiply(numberInMem, currentNum);
+        case '/':
+            if (currentNum === 0) return null;
+            else return divide(numberInMem, currentNum);
+        default:
+            return null;
+    }   
 }
+
+// 3. Updates display when clicking numbers
+
+
+
+
 
 
 

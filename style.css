@@ -58,6 +58,10 @@ body {
     margin-top: 40px;
 }
 
+button {
+    color: white;
+    border: none;
+}
 
 .buttons-container {
     display: grid;
@@ -88,6 +92,14 @@ body {
     background: #f69906;
 }
 
+.button.operator:active, /* active -> used to select and style a active link (when clicked) || focus -> when user clicks on div */
+.button.operator:focus {
+    color: #f69906;
+    background: rgb(230, 230, 230);
+
+}
+
+
 .button.number-0 {
     width: 170px;
     border-radius: 55px;
@@ -110,7 +122,7 @@ body {
 
 .button:active, /* active -> used to select and style a active link (when clicked) || focus -> when user clicks on div */
 .button:focus {
-    filter: brightness(120%); /* when button is clicked; brightness will increase */
+    filter: brightness(150%); /* when button is clicked; brightness will increase */
 }
 
 .bottom {
