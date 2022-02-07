@@ -39,6 +39,7 @@ body {
     margin-top: 30px;
 }
 
+/* 
 .calculation {
     text-align: right;
     margin-right: 20px;
@@ -47,7 +48,7 @@ body {
 #string-1, #string-operation, #string-2 {
     font-size: 20px;
     font-weight: lighter;
-}
+} */
 
 .value {
     font-size: 90px;
