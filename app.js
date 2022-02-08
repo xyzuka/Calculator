@@ -51,8 +51,9 @@ time();
 let numberInMem = null;
 let currentNum = null;
 let operatorInMem = null;
+let newSum = null;
 
-// 1. Functions for operators
+// Functions for operators
 const add = (numberInMem, currentNum) => {
   return numberInMem + currentNum;
 }
@@ -69,7 +70,7 @@ const divide = (numberInMem, currentNum) => {
   return numberInMem / currentNum;
 }
 
-// 2. Function to call operator
+// Function to call operator
 const operate = (operatorInMem, numberInMem, currentNum) => {
   numberInMem = Number(numberInMem);
   currentNum = Number(currentNum);
@@ -88,7 +89,21 @@ const operate = (operatorInMem, numberInMem, currentNum) => {
   }
 }
 
-// 3. Updates display when clicking numbers
+// Function to update display
+const updateDisplay = (number) => {
+    if (!operatorInMem) {
+        valueEl.textContent += number;
+    } else {
+        valueEl.textContent = numberInMem;
+    }
+
+    if (operatorInMem && numberInMem) {
+        valueEl.textContent = '';
+        valueEl.textContent += number;
+    }
+}
+
+// Event listener for clicking numbers
 numberElArray.forEach((button) => {
   button.addEventListener('click', () => appendNumber(button.textContent));
 })
@@ -98,25 +113,40 @@ const appendNumber = (number) => {
   } 
 
   if (!operatorInMem) {
-    valueEl.textContent += number;
+    updateDisplay(number);
     numberInMem = parseFloat(valueEl.textContent);
     console.log(`num in mem: ${numberInMem}`);
   } else {
-    valueEl.textContent += number;
+    updateDisplay(number);
     currentNum = parseFloat(valueEl.textContent);
     console.log(`current no: ${currentNum}`);
   }
   
 }
 
-// 4. Decimal key
+// Decimal key
 decimalEl.addEventListener('click', () => {
   if (!valueEl.textContent.includes('.')) {
     valueEl.textContent += '.';
   }
 })
 
-// 5. When user clicks operator
+// Function called when user clicks an operator
+function evaluate () {
+    let sum = operate(operatorInMem, numberInMem, currentNum);
+    updateDisplay(sum);
+    console.log(`newSum: ${sum}`);
+}
+
+const operatorClicked = (operator) => {
+  operatorInMem = operator;
+  console.log(`operator clicked: ${operatorInMem}`);
+  let currentNum;
+  updateDisplay(numberInMem);
+
+}
+
+// Event listeners for operators
 additionEl.addEventListener('click', () => {
   operatorClicked('+');
 })
@@ -137,24 +167,7 @@ equalEl.addEventListener('click', () => {
   evaluate();
 })
 
-function evaluate () {
-    let sum = operate(operatorInMem, numberInMem, currentNum);
-    valueEl.textContent = sum;
-    console.log(`newSum: ${sum}`);
-}
 
-const operatorClicked = (operator) => {
-  operatorInMem = operator;
-  console.log(`operator clicked: ${operatorInMem}`);
-  valueEl.textContent = '';
-  
-
-
- 
-
-
-
-}
 
 
 
