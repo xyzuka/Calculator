@@ -49,7 +49,7 @@ time();
 
 // Variables
 let numberInMem = null;
-let currentNum = null;
+let currentNum = '';
 let operatorInMem = null;
 let newSum = null;
 
@@ -91,16 +91,18 @@ const operate = (operatorInMem, numberInMem, currentNum) => {
 
 // Function to update display
 const updateDisplay = (number) => {
-    if (!operatorInMem) {
-        valueEl.textContent += number;
-    } else {
-        valueEl.textContent = numberInMem;
-    }
+  valueEl.textContent = number;
+  // if (!operatorInMem) {
+  //   valueEl.textContent += number;
+  // } else {
+  //   valueEl.textContent += number;
+  // }
 
-    if (operatorInMem && numberInMem) {
-        valueEl.textContent = '';
-        valueEl.textContent += number;
-    }
+  // // **** I think the bug is coming from this 
+  // if (operatorInMem && numberInMem) {
+  //   valueEl.textContent = '';
+  //   valueEl.textContent += numbber;
+  // }
 }
 
 // Event listener for clicking numbers
@@ -110,18 +112,16 @@ numberElArray.forEach((button) => {
 const appendNumber = (number) => {
   if (valueEl.textContent === '0') {
     valueEl.textContent = '';
-  } 
-
-  if (!operatorInMem) {
-    updateDisplay(number);
-    numberInMem = parseFloat(valueEl.textContent);
-    console.log(`num in mem: ${numberInMem}`);
-  } else {
-    updateDisplay(number);
-    currentNum = parseFloat(valueEl.textContent);
-    console.log(`current no: ${currentNum}`);
   }
-  
+
+  // if (!operatorInMem) {
+  //   updateDisplay(number);
+  //   numberInMem = parseFloat(valueEl.textContent);
+  //   console.log(`num in mem: ${numberInMem}`);
+    currentNum += number;
+    updateDisplay(currentNum);
+    console.log(`current no: ${currentNum}`);
+
 }
 
 // Decimal key
@@ -132,17 +132,19 @@ decimalEl.addEventListener('click', () => {
 })
 
 // Function called when user clicks an operator
-function evaluate () {
-    let sum = operate(operatorInMem, numberInMem, currentNum);
-    updateDisplay(sum);
-    console.log(`newSum: ${sum}`);
+function evaluate() {
+  let sum = operate(operatorInMem, numberInMem, currentNum);
+  updateDisplay(sum);
+  console.log(`newSum: ${sum}`);
 }
 
 const operatorClicked = (operator) => {
   operatorInMem = operator;
   console.log(`operator clicked: ${operatorInMem}`);
-  let currentNum;
-  updateDisplay(numberInMem);
+  numberInMem = currentNum;
+  currentNum = '';
+  // let currentNum;
+  // updateDisplay(numberInMem);
 
 }
 
@@ -172,9 +174,7 @@ equalEl.addEventListener('click', () => {
 
 
 
-// console.log(numberInMem);
-// console.log(operatorInMem);
-// console.log(currentNum);
+
 
 
 
@@ -191,7 +191,7 @@ acEl.addEventListener('click', () => {
 delEl.addEventListener('click', () => {
   if (valueEl.textContent) {
     valueEl.textContent = parseFloat(valueEl.textContent.slice(0, -1));
-    
+
   }
 })
 
