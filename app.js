@@ -34,7 +34,7 @@ const numberElArray = [number0El, number1El, number2El, number3El, number4El, nu
 let numberInMem = null;
 let currentNum = '';
 let operatorInMem = null;
-let newSum = null;
+let sum = null;
 
 // Functions for operators
 const add = (numberInMem, currentNum) => {
@@ -96,7 +96,7 @@ const appendNumber = (number) => {
 decimalEl.addEventListener('click', () => {
   if (!valueEl.textContent.includes('.')) {
     valueEl.textContent += '.'
-  } return
+  } return currentNum = valueEl.textContent;
 })
 
 // Function called when user clicks an operator
@@ -110,10 +110,19 @@ function roundResult(number) {
 }
 
 const operatorClicked = (operator) => {
-  operatorInMem = operator;
-  numberInMem = currentNum;
-  // empties the concatenated numbers
-  currentNum = '';
+    if (currentNum && numberInMem && operatorInMem) {
+        evaluate();
+        numberInMem = valueEl.textContent;
+        operatorInMem = operator;
+        currentNum = ''
+        return
+    }
+
+    operatorInMem = operator;
+    numberInMem = currentNum;
+    // empties the concatenated numbers
+    currentNum = '';
+    
 }
 
 // Event listeners for operators
@@ -148,8 +157,13 @@ acEl.addEventListener('click', () => {
 // Delete feature
 delEl.addEventListener('click', () => {
   if (valueEl.textContent) {
-    valueEl.textContent = parseFloat(valueEl.textContent.slice(0, -1));
+    valueEl.textContent = valueEl.textContent.slice(0, -1);
+    return currentNum = valueEl.textContent;
+  } 
 
+  if (valueEl.textContent.includes('')) {
+    valueEl.textContent = '0';
+    return currentNum = valueEl.textContent;
   }
 })
 
