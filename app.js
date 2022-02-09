@@ -30,23 +30,6 @@ const number9El = document.querySelector('.number-9');
 const numberElArray = [number0El, number1El, number2El, number3El, number4El, number5El, number6El, number7El, number8El, number9El];
 // Using an array so we can loop through the numbers when adding event listeners to avoid duplicate code
 
-// Time functionality
-const time = () => {
-  const currentTime = new Date();
-
-  let currentHour = currentTime.getHours();
-  let currentMinute = currentTime.getMinutes();
-
-  if (currentHour > 12) {
-    currentHour -= 12;
-  }
-
-  hourEl.textContent = currentHour.toString();
-  minuteEl.textContent = currentMinute.toString().padStart(2, '0');
-}
-setInterval(time, 1000);
-time();
-
 // Variables
 let numberInMem = null;
 let currentNum = '';
@@ -82,7 +65,7 @@ const operate = (operatorInMem, numberInMem, currentNum) => {
     case '*':
       return multiply(numberInMem, currentNum);
     case '/':
-      if (currentNum === 0) return null;
+      if (currentNum === 0) alert('Cannot divide by zero!');
       else return divide(numberInMem, currentNum);
     default:
       return null;
@@ -92,17 +75,6 @@ const operate = (operatorInMem, numberInMem, currentNum) => {
 // Function to update display
 const updateDisplay = (number) => {
   valueEl.textContent = number;
-  // if (!operatorInMem) {
-  //   valueEl.textContent += number;
-  // } else {
-  //   valueEl.textContent += number;
-  // }
-
-  // // **** I think the bug is coming from this 
-  // if (operatorInMem && numberInMem) {
-  //   valueEl.textContent = '';
-  //   valueEl.textContent += numbber;
-  // }
 }
 
 // Event listener for clicking numbers
@@ -114,38 +86,34 @@ const appendNumber = (number) => {
     valueEl.textContent = '';
   }
 
-  // if (!operatorInMem) {
-  //   updateDisplay(number);
-  //   numberInMem = parseFloat(valueEl.textContent);
-  //   console.log(`num in mem: ${numberInMem}`);
+    // concatenates numbers clicked
     currentNum += number;
+    // updates display 
     updateDisplay(currentNum);
-    console.log(`current no: ${currentNum}`);
-
 }
 
 // Decimal key
 decimalEl.addEventListener('click', () => {
   if (!valueEl.textContent.includes('.')) {
-    valueEl.textContent += '.';
-  }
+    valueEl.textContent += '.'
+  } return
 })
 
 // Function called when user clicks an operator
 function evaluate() {
-  let sum = operate(operatorInMem, numberInMem, currentNum);
+  let sum = roundResult(operate(operatorInMem, numberInMem, currentNum));
   updateDisplay(sum);
-  console.log(`newSum: ${sum}`);
+}
+
+function roundResult(number) {
+  return Math.round(number * 100) / 100
 }
 
 const operatorClicked = (operator) => {
   operatorInMem = operator;
-  console.log(`operator clicked: ${operatorInMem}`);
   numberInMem = currentNum;
+  // empties the concatenated numbers
   currentNum = '';
-  // let currentNum;
-  // updateDisplay(numberInMem);
-
 }
 
 // Event listeners for operators
@@ -168,16 +136,6 @@ divisionEl.addEventListener('click', () => {
 equalEl.addEventListener('click', () => {
   evaluate();
 })
-
-
-
-
-
-
-
-
-
-
 
 // Clear feature
 acEl.addEventListener('click', () => {
@@ -229,7 +187,22 @@ delEl.addEventListener('click', () => {
 
 
 
-
+// Misc - Time functionality
+const time = () => {
+    const currentTime = new Date();
+  
+    let currentHour = currentTime.getHours();
+    let currentMinute = currentTime.getMinutes();
+  
+    if (currentHour > 12) {
+      currentHour -= 12;
+    }
+  
+    hourEl.textContent = currentHour.toString();
+    minuteEl.textContent = currentMinute.toString().padStart(2, '0');
+  }
+  setInterval(time, 1000);
+  time();
 
 
 // // Keyboard functionality
