@@ -97,9 +97,7 @@ button {
 .button.operator:focus {
     color: #f69906;
     background: rgb(230, 230, 230);
-
 }
-
 
 .button.number-0 {
     width: 170px;
@@ -151,7 +149,7 @@ a {
     gap: 10px;
     width: 100%;
     padding: 10px;
-    font-size: 20px;
+    font-size: 12px;
     font-weight: bold;
     color: black;
 }

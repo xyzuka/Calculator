@@ -66,8 +66,8 @@ const operate = (operatorInMem, numberInMem, currentNum) => {
       return multiply(numberInMem, currentNum);
     case '/':
       if (currentNum === 0) {
-          reset();
           alert('You cannot divide a number by 0!')
+          reset();
       }
       else return divide(numberInMem, currentNum);
     default:
@@ -95,11 +95,15 @@ const appendNumber = (number) => {
     updateDisplay(currentNum);
 }
 
+function appendPoint() {
+    if (!valueEl.textContent.includes('.')) {
+        valueEl.textContent += '.'
+      } return currentNum = valueEl.textContent;
+}
+
 // Decimal key
 decimalEl.addEventListener('click', () => {
-  if (!valueEl.textContent.includes('.')) {
-    valueEl.textContent += '.'
-  } return currentNum = valueEl.textContent;
+    appendPoint();
 })
 
 // Function called when user clicks an operator
@@ -161,18 +165,42 @@ function reset() {
   valueEl.textContent = '0';
 }
 
+function deleteNumber() {
+    if (valueEl.textContent) {
+        valueEl.textContent = valueEl.textContent.slice(0, -1);
+        return currentNum = valueEl.textContent;
+      } 
+    
+      if (valueEl.textContent.includes('')) {
+        valueEl.textContent = '0';
+        return currentNum = valueEl.textContent;
+      }
+}
+
 // Delete feature
 delEl.addEventListener('click', () => {
-  if (valueEl.textContent) {
-    valueEl.textContent = valueEl.textContent.slice(0, -1);
-    return currentNum = valueEl.textContent;
-  } 
-
-  if (valueEl.textContent.includes('')) {
-    valueEl.textContent = '0';
-    return currentNum = valueEl.textContent;
-  }
+    deleteNumber();
 })
+
+// Keyboard support
+window.addEventListener('keydown', handleKeyBoardInput)
+
+function convertOperator(keyboardOperator) {
+    if (keyboardOperator === '/') return '÷'
+    if (keyboardOperator === '*') return '*'
+    if (keyboardOperator === '-') return '−'
+    if (keyboardOperator === '+') return '+'
+}
+
+function handleKeyBoardInput(e) {
+    if (e.key >= 0 && e.key <= 9) appendNumber(e.key)
+    if (e.key === '.') appendPoint()
+    if (e.key === '=' || e.key === 'Enter') evaluate()
+    if (e.key === 'Backspace') deleteNumber()
+    if (e.key === 'Escape') reset()
+    if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/')
+      operatorClicked(convertOperator(e.key))
+}
 
 
 
