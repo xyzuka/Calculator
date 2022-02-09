@@ -155,3 +155,12 @@ a {
     font-weight: bold;
     color: black;
 }
+
+.notes {
+    padding-top: 20px;
+    text-align: center;
+}
+
+.notes p {
+    padding-top: 5px;
+}

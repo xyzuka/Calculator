@@ -65,7 +65,10 @@ const operate = (operatorInMem, numberInMem, currentNum) => {
     case '*':
       return multiply(numberInMem, currentNum);
     case '/':
-      if (currentNum === 0) alert('Cannot divide by zero!');
+      if (currentNum === 0) {
+          reset();
+          alert('You cannot divide a number by 0!')
+      }
       else return divide(numberInMem, currentNum);
     default:
       return null;
@@ -110,6 +113,7 @@ function roundResult(number) {
 }
 
 const operatorClicked = (operator) => {
+    // for chaining operators 
     if (currentNum && numberInMem && operatorInMem) {
         evaluate();
         numberInMem = valueEl.textContent;
@@ -148,11 +152,14 @@ equalEl.addEventListener('click', () => {
 
 // Clear feature
 acEl.addEventListener('click', () => {
+  reset();
+})
+function reset() {
   currentNum = ''
   numberInMem = ''
   operatorInMem = undefined;
   valueEl.textContent = '0';
-})
+}
 
 // Delete feature
 delEl.addEventListener('click', () => {
