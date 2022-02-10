@@ -117,7 +117,7 @@ function roundResult(number) {
 }
 
 const operatorClicked = (operator) => {
-    // for chaining operators 
+    // for chaining operators when clicking
     if (currentNum && numberInMem && operatorInMem) {
         evaluate();
         numberInMem = valueEl.textContent;
@@ -166,15 +166,19 @@ function reset() {
 }
 
 function deleteNumber() {
-    if (valueEl.textContent) {
+    if (numberInMem && operatorInMem && currentNum) {
         valueEl.textContent = valueEl.textContent.slice(0, -1);
-        return currentNum = valueEl.textContent;
-      } 
-    
-      if (valueEl.textContent.includes('')) {
-        valueEl.textContent = '0';
-        return currentNum = valueEl.textContent;
-      }
+        currentNum = valueEl.textContent;
+        numberInMem = ''
+        return
+    }
+
+    if (currentNum) {
+        valueEl.textContent = valueEl.textContent.slice(0, -1);
+        currentNum = valueEl.textContent;
+        numberInMem = ''
+        return
+    }
 }
 
 // Delete feature
@@ -253,31 +257,3 @@ const time = () => {
   setInterval(time, 1000);
   time();
 
-
-// // Keyboard functionality
-// document.addEventListener('keydown', (e) => {
-//     let keyCode = e.key;
-//     console.log(keyCode);
-
-// //    if (e.key === '1') {
-// //        valueEl.textContent = '1';
-// //    } else if (e.key === '2') {
-// //        valueEl.textContent = '2';
-// //    } else if (e.key === '3') {
-// //        valueEl.textContent = '3';
-// //    } else if (e.key === '4') {
-// //        valueEl.textContent = '4';
-// //    } else if (e.key === '5') {
-// //        valueEl.textContent = '5';
-// //    } else if (e.key === '6') {
-// //        valueEl.textContent = '6';
-// //    } else if (e.key === '7') {
-// //        valueEl.textContent = '7';
-// //    } else if (e.key === '8') {
-// //        valueEl.textContent = '8';
-// //    } else if (e.key === '9') {
-// //        valueEl.textContent = '9';
-// //    } else {
-// //        valueEl.textContent = '0';
-// //    }
-// })
