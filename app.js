@@ -34,7 +34,7 @@ const numberElArray = [number0El, number1El, number2El, number3El, number4El, nu
 let numberInMem = null;
 let currentNum = '';
 let operatorInMem = null;
-let sum = null;
+let newValue = '';
 
 // Functions for operators
 const add = (numberInMem, currentNum) => {
@@ -108,8 +108,8 @@ decimalEl.addEventListener('click', () => {
 
 // Function called when user clicks an operator
 function evaluate() {
-  let sum = roundResult(operate(operatorInMem, numberInMem, currentNum));
-  updateDisplay(sum);
+  let newValue = roundResult(operate(operatorInMem, numberInMem, currentNum));
+  updateDisplay(newValue);
 }
 
 function roundResult(number) {
@@ -188,7 +188,7 @@ window.addEventListener('keydown', handleKeyBoardInput)
 function convertOperator(keyboardOperator) {
     if (keyboardOperator === '/') return '÷'
     if (keyboardOperator === '*') return '*'
-    if (keyboardOperator === '-') return '−'
+    if (keyboardOperator === '-') return '-'
     if (keyboardOperator === '+') return '+'
 }
 
